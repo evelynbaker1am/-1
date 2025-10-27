@@ -1,92 +1,211 @@
+<!doctype html>
+<html lang="ko">
 <head>
-  <title>디지털 탄소 카드뉴스</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>디지털 탄소 카드뉴스 — 세로 스크롤 리디자인</title>
   <style>
-    body {margin: 0; padding: 0; font-family: "Noto Sans KR", sans-serif;}
-    section {width: 100%; height: 100vh; text-align: center; padding: 40px;}
-    h1, h2, p {margin: 20px;}
-    img {width: 80%; max-width: 400px; border-radius: 10px;}
-    .red {color: red; font-weight: bold;}
-    .gray {background: #111; color: white;}
-    .white {background: white; color: black;}
-     section, header, footer 
-     {width: 100%; height: 100vh;
-      text-align: center; padding: 40px;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;}
+    :root {
+      --red: #ff3b3b;
+      --black: #0a0a0a;
+      --gray: #f5f5f5;
+      --darkgray: #111;
+      --text: #111;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* 배경 영상 */
+.page {
+  position: relative;
+  overflow: hidden;
+}
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(6px) brightness(0.45); /* 흐리게 + 어둡게 */
+}
+.background .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+}
+
+/* 카드 내용은 위로 */
+.card {
+  position: relative;
+  z-index: 2;
+}
+
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      scroll-snap-type: y mandatory;
+      overflow-x: hidden;
+      background: var(--gray);
+    }
+    section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 40px;
+      scroll-snap-align: start;
+      transition: background 0.6s ease;
+    }
+    section:nth-child(odd) { background: white; color: var(--black); }
+    section:nth-child(even) { background: var(--darkgray); color: white; }
+
+    img, video {
+      width: 70%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 16px;
+      margin: 30px 0;
+      object-fit: cover;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+    h1, h2 {
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    h1 { font-size: clamp(28px, 5vw, 46px); color: var(--red); }
+    h2 { font-size: clamp(24px, 4vw, 36px); }
+    p {
+      max-width: 700px;
+      font-size: clamp(16px, 2.5vw, 19px);
+      line-height: 1.8;
+      color: inherit;
+    }
+    .accent { color: var(--red); font-weight: 700; }
+
+    /* 등장 애니메이션 */
+    .fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+    .fade.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 스크롤 시 부드럽게 */
+    html {
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
-
 <body>
 
-  <1>
-  <header class="gray">
-    <h1>유튜브 1분 시청이<br><span class="red">나무 한 그루를 죽인다?</span></h1>
-    <img src="photo.you">
-    <p>디지털도 친환경이 아니다<br>보이지 않는 탄소, 우리가 만든 또 다른 오염</p>
-  </header>
+  <!-- 1 -->
+  <section>
+    <h1>유튜브 1분 시청이<br><span class="accent">나무 한 그루를 죽인다?</span></h1>
+    <img src="photo1.jpg.jpg" alt="스트리밍과 탄소">
+    <p>유튜브 영상 1분 재생 시 <span class="accent">0.46g의 CO₂</span>가 배출됩니다.<br>
+    하루 누적 시 약 <span class="accent">7,200톤</span>, 이는 나무 <span class="accent">1억 그루</span>가 1년 동안 흡수하는 탄소량과 같습니다.</p>
+  </section>
 
-  <2>
-  <section class="white">
-    <img src="photo.scale">
+  <!-- 2 -->
+  <section>
     <h2>디지털이 친환경이라는 착각</h2>
-    <p>종이 대신 전자 문서, 회의 대신 화상 회의<br>그래서 우리는 ‘디지털은 친환경’이라 믿습니다<br>하지만 디지털에도 탄소 발자국이 있습니다</p>
+    <img src="photo-scale.jpg.png" alt="디지털 착각">
+    <p>종이 대신 전자 문서를 사용하고 회의 대신 화상 회의를 하지만,<br>
+    클릭 한 번에도 탄소가 배출됩니다.<br>
+    이메일 1통당 약 <span class="accent">4g CO₂</span>, 화상회의 1시간은 약 <span class="accent">1.1kg CO₂</span>를 만듭니다.</p>
   </section>
 
-  <3>
-  <section class="gray">
-    <img src="photo.room">
-    <h2>디지털 센터의 보이지 않는 공장</h2>
-    <p>우리가 보는 영상, 올리는 사진<br>모두 데이터센터에서 24시간 저장·처리됩니다<br>이곳이 바로 전기를 폭발적으로 사용하는 곳입니다</p>
+  <!-- 3 -->
+  <section>
+    <h2>보이지 않는 공장, 데이터센터</h2>
+    <img src="photo-room.jpg.png" alt="데이터센터">
+    <p>데이터센터는 24시간 작동하며 서버 1대당 연 <span class="accent">1,800kWh</span>의 전력을 사용합니다.<br>
+    냉각장치가 전체 전력의 <span class="accent">40%</span>를 차지하며,<br>
+    전 세계에 약 <span class="accent">8천만 대</span>의 서버가 돌아가고 있습니다.</p>
   </section>
 
-  <4>
-  <section class="white">
-    <img src="photo.graph">
-    <h2>전 세계 데이터센터 전력 소비량</h2>
-    <p>전 세계 전력의 약 <span class="red">4%</span><br>✈ 항공 산업 전체와 맞먹는 수준<br>대부분은 아직 석탄·가스 발전에서 공급됩니다</p>
+  <!-- 4 -->
+  <section>
+    <h2>전 세계 데이터센터 전력 소비</h2>
+    <img src="chart.jpg" alt="전력 그래프">
+    <p>데이터센터는 전 세계 전력의 <span class="accent">4%</span>를 사용합니다.<br>
+    이는 항공 산업 전체와 맞먹는 수준이며,<br>
+    2030년엔 <span class="accent">10%</span>에 도달할 것으로 전망됩니다.</p>
   </section>
 
-  <5>
-  <section class="gray">
-    <img src="photo.youtube logo">
+  <!-- 5 -->
+  <section>
     <h2>유튜브 10분 = CO₂ 1.6g</h2>
-    <p>유튜브 10분 시청 시 1.6g의 탄소가 배출됩니다<br>전 세계 수십억 명이 본다면,<br>숲 하나가 사라질 만큼의 탄소가 쌓입니다</p>
+    <img src="photo-youtube-logo.jpg.jpg" alt="유튜브 로고">
+    <p>10분 시청은 약 <span class="accent">1.6g CO₂</span>를 배출합니다.<br>
+    하루 평균 1시간씩 보는 이용자가 10억 명이라면,<br>
+    매일 <span class="accent">9,600톤의 탄소</span>가 발생합니다.</p>
   </section>
 
-  <6>
-  <section class="white">
-    <img src="photo2.graph">
-    <h2>화질이 높을수록 더 심하다</h2>
-    <p>4K 영상은 FHD보다 최대 4배 더 많은 에너지를 씁니다<br>고화질 = 고탄소<br>‘선명한 영상’이 ‘탁한 공기’를 남깁니다</p>
+  <!-- 6 -->
+  <section>
+    <h2>화질이 높을수록 더 많은 전기</h2>
+    <img src="ppi.jpg" alt="고화질 영상">
+    <p><span class="accent">4K는 FHD의 4배, 8K는 16배</span>의 에너지를 사용합니다.<br>
+    화질을 한 단계 낮추는 것만으로도 <span class="accent">탄소 50%</span>를 줄일 수 있습니다.</p>
   </section>
 
-  <7>
-  <section class="gray">
-    <img src="photo.cloud">
-    <h2>저장도 탄소를 먹는다</h2>
-    <p>클라우드에 저장된 파일은 ‘잠들지 않는 전력 소비자’입니다<br>서버는 파일을 항상 켜둔 상태로 유지합니다<br>이메일, 사진, 영상 하나하나가 전기를 씁니다</p>
+  <!-- 7 -->
+  <section>
+    <h2>저장도 전기를 먹는다</h2>
+    <img src="img.png" alt="클라우드">
+    <p>클라우드 저장 파일 1GB는 연간 <span class="accent">3~7kg CO₂</span>를 만듭니다.<br>
+    불필요한 데이터를 지우면 서버 전력 사용을 <span class="accent">10%</span> 줄일 수 있습니다.</p>
   </section>
 
-  <8>
-  <section class="white">
-    <img src="photo.logo">
-    <h2>디지털 탄소 발자국, 얼마나 될까?</h2>
-    <p>이메일 1통 = 전등 1시간 켜기<br>유튜브 1분 = CO₂ 65g<br>SNS 10분 = 전구 2개 밝기<br><br>작아 보여도, 매일 수십억 번 쌓입니다</p>
+  <!-- 8 -->
+  <section>
+    <h2>디지털 탄소, 체감 수치</h2>
+    <img src="photo-logo.jpg.png" alt="아이콘">
+    <p>이메일 1통 = 전등 1시간,<br>
+    유튜브 1분 = <span class="accent">65g CO₂</span>,<br>
+    SNS 10분 = 전구 2개 밝기.<br>
+    이런 행동이 매일 <span class="accent">수십억 번</span> 반복됩니다.</p>
   </section>
 
-  <9>
-  <section class="gray">
-    <img src="delete-files">
-    <h2>탄소 배출량을 줄이는 방법</h2>
-    <p>📁 오래된 파일·메일 삭제<br>▶ 자동 재생 끄기</p>
+  <!-- 9 -->
+  <section>
+    <h2>지금 줄일 수 있는 방법</h2>
+    <img src="photo-carbon.jpg.jpg" alt="감축">
+    <p>파일 정리, 자동재생 끄기, 표준 화질 설정,<br>
+    Wi-Fi 우선 사용, 재생에너지 기반 플랫폼 선택.<br>
+    작은 변화가 큰 절감을 만듭니다.</p>
   </section>
 
-  <10>
-  <footer class="white">
-    <img src="photo.heart">
+  <!-- 10 -->
+  <section>
     <h2>우리의 작은 행동이 지구를 살립니다</h2>
-    <p>#디지털탄소 #에코뉴스</p>
-  </footer>
+    <img src="photo-heart.jpg.jpeg" alt="마무리">
+    <p>하루 1시간만 시청 시간을 줄이면 연간 1인당 <span class="accent">10kg CO₂</span> 감축.<br>
+    전 세계 10억 명이 실천하면 <span class="accent">1,000만 톤</span> 이상 절감됩니다.<br>
+    당신의 클릭이 지구의 숨결을 바꿉니다.</p>
+  </section>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+    document.querySelectorAll('section').forEach(sec => {
+      sec.classList.add('fade');
+      observer.observe(sec);
+    });
+  </script>
 
 </body>
 </html>
+
